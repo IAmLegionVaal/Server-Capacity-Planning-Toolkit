@@ -1,20 +1,20 @@
 # Server Capacity Planning Toolkit
 
-A read-only PowerShell toolkit for Windows Server capacity and resource assessment.
+Created by **Dewald Pretorius**.
 
-## Features
+A read-only PowerShell 5.1 toolkit for Windows Server capacity assessment and automation-friendly threshold validation.
 
-- CPU, memory, disk, and uptime summary
-- Top process resource usage
-- Disk free-space thresholds
-- CSV, JSON, and HTML reports
+## Files
 
-## How to run
+- `Server_Capacity_Planning_Toolkit.ps1` — CPU, memory, disk, uptime, and top-process reports.
+- `Validate-Capacity.ps1` — evaluates configurable disk, memory, and processor thresholds and returns meaningful exit codes.
 
 ```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\Server_Capacity_Planning_Toolkit.ps1
+.\Server_Capacity_Planning_Toolkit.ps1
+.\Validate-Capacity.ps1
+.\Validate-Capacity.ps1 -MinimumDiskFreePercent 20 -MinimumMemoryAvailablePercent 20 -MaximumProcessorLoadPercent 80
 ```
 
-## Safety
+Validation exits with `0` when healthy, `1` when a threshold warning is found, and `5` when data collection fails. JSON and CSV evidence is written to the report directory.
 
-Diagnostic-only. It reports capacity context and does not change server settings.
+The toolkit intentionally does not resize disks, stop workloads, change virtual hardware, or alter production capacity. Source-reviewed for Windows PowerShell 5.1; not runtime-tested on every server platform.
